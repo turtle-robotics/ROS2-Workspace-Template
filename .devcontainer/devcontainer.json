@@ -1,0 +1,24 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "ros",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.autopep8",
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml"
+      ]
+    }
+  },
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "privileged": true,
+  "postCreateCommand": "echo '. ${containerWorkspaceFolder}/install/setup.bash' >> ~/.bashrc",
+  "postStartCommand": "rosdep update --rosdistro=$ROS_DISTRO && rosdep install --from-paths src -y --ignore-src"
+}
