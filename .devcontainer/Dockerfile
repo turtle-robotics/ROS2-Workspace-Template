@@ -24,20 +24,21 @@ RUN apt-get install -y openssh-client
 
 # Create a non root user with UID and GID that VSCode can change to match the host's UID and GID on start to
 # avoid ownership and permission conflicts with the host's user
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -s /bin/bash \
-    #
-    # Add sudo support (required for docker in docker)
-    && apt-get update \
-    && apt-get install -y sudo screen \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    #
-    # Add user to dialout group so they can access serial devices
-    && usermod -a -G dialout $USERNAME
+# RUN groupadd --gid $USER_GID $USERNAME \
+#     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -s /bin/bash \
+#     #
+#     # Add sudo support (required for docker in docker)
+#     && apt-get update \
+#     && apt-get install -y sudo screen \
+#     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+#     && chmod 0440 /etc/sudoers.d/$USERNAME \
+#     #
+#     # Add user to dialout group so they can access serial devices
+#     && usermod -a -G dialout $USERNAME
 
 # Install dependencies
 RUN apt-get install -y 
 
 # Run command to source ROS in each new terminal so you only have to source your local install
 RUN echo ". /opt/ros/$ROS_DISTRO/setup.sh" >> /etc/profile
+
