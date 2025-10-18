@@ -2,7 +2,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "remoteUser": "ros",
+  "remoteUser": "ubuntu",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -22,3 +22,4 @@
   "postCreateCommand": "echo '. ${containerWorkspaceFolder}/install/setup.bash' >> ~/.bashrc",
   "postStartCommand": "rosdep update --rosdistro=$ROS_DISTRO && rosdep install --from-paths src -y --ignore-src"
 }
+
